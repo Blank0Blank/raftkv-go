@@ -33,16 +33,16 @@ go run main.go 8081
 #### API usage
 
 ##### GET /store/{key} 
-`curl localhost:{peer}/store/{key}`
+`curl localhost:{peer}/store/{key}`  
 Get a value
 
 ##### PUT /store/{key}
-`curl -X PUT localhost:{peer}/store/{key}`
+`curl -X PUT localhost:{peer}/store/{key}`  
 - If the node is a follower: redirects to the current leader
 - If the node is the leader: processes the request and replicates to followers
 
 ##### DELETE /store/{key}
-`curl -X DELETE localhost:{port}/store/{key}`
+`curl -X DELETE localhost:{port}/store/{key}`  
 Delete a key
 
 ##### POST /vote
@@ -59,4 +59,5 @@ Internal Raft heartbeat
 - localhost:8081
 
 ##### Data files
-Each node save data to data_{port}.json, e.g. localhost:8080 saves to data_8080.json
+Each node save data to `data_{port}.json`, example:  
+`localhost:8080` saves to `data_8080.json`
