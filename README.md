@@ -1,6 +1,6 @@
 ### raftkv-go
 
-HTTP key-value store in Go with a small Raft implementation
+HTTP key-value store in Go with a small Raft implementation  
 A learning project
 
 #### File structure
