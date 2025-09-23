@@ -69,7 +69,7 @@ func (s *Store) GetHandler(w http.ResponseWriter, r *http.Request) {
 	key := r.PathValue("key")
 	w.Header().Set("Content-Type", "application/json")
 
-	s.mu.RLock()
+	s.mu.RLock() // Maps are not safe for concurrent reads and writes
 	val, ok := s.data[key]
 	s.mu.RUnlock()
 
@@ -114,9 +114,8 @@ func (s *Store) PutHandler(w http.ResponseWriter, r *http.Request) {
 	if err := s.Save(); err != nil {
 		log.Printf("Error saving: %v", err)
 	}
-
+	// Only the leader gets here (followers redirect to leader)
 	if !isReplication && s.Replicator != nil {
-		// Replicate via the provided Replicator
 		go s.Replicator.Replicate(key, string(body))
 	}
 
